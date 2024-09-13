@@ -21,20 +21,24 @@ jobs:
         with:
           node-version: "16" # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+
+      - name: Install dependencies for both frontend and backend
+        run: pnpm install
 
       - name: Build Vue frontend
         working-directory: ./client # ตั้งค่า directory ของ Vue frontend
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm run build
 
       - name: Build NestJS backend
         working-directory: ./server # ตั้งค่า directory ของ NestJS backend
         run: |
-          npm install
-          npm run build
+          pnpm install
+          pnpm run build
 
       - name: Deploy with PM2
         run: |
