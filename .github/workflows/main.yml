@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16" # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
+          node-version: "20" # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
 
       - name: Install pnpm
         run: |
