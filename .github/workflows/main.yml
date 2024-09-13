@@ -1,0 +1,48 @@
+name: CI/CD for Vue and NestJS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Vue frontend
+        working-directory: ./client  # ตั้งค่า directory ของ Vue frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: Build NestJS backend
+        working-directory: ./server  # ตั้งค่า directory ของ NestJS backend
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy with PM2
+        run: |
+          pm2 delete all || true
+          pm2 start ./server/dist/main.js --name "nest-app"
+          pm2 start ./client/dist --name "vue-app"
+          pm2 save
+
+      - name: Save PM2 state
+        run: |
+          pm2 save
