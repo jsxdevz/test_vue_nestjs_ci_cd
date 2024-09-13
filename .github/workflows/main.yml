@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
@@ -19,19 +19,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
+          node-version: "16" # ใช้เวอร์ชัน Node.js ที่เหมาะสมกับโปรเจกต์
 
       - name: Install dependencies
         run: npm install
 
       - name: Build Vue frontend
-        working-directory: ./client  # ตั้งค่า directory ของ Vue frontend
+        working-directory: ./client # ตั้งค่า directory ของ Vue frontend
         run: |
           npm install
           npm run build
 
       - name: Build NestJS backend
-        working-directory: ./server  # ตั้งค่า directory ของ NestJS backend
+        working-directory: ./server # ตั้งค่า directory ของ NestJS backend
         run: |
           npm install
           npm run build
