@@ -25,8 +25,8 @@ jobs:
         run: |
           npm install -g pnpm
 
-      - name: Install dependencies for both frontend and backend
-        run: pnpm install
+      # - name: Install dependencies for both frontend and backend
+      #   run: pnpm install
 
       - name: Build Vue frontend
         working-directory: ./client # ตั้งค่า directory ของ Vue frontend
